@@ -35,7 +35,9 @@ def process(request):
             # search the fname in the DB where the email == email from the user (given from the form)
             # then you can check with email address belongs to which user firstname!!
             # at the end .fname gives you just the fname cell from the DB instead the whole user info
-            request.session['fname'] = User.objects.get(email = email).fname
+            user1 = User.objects.get(email = email)
+            request.session['id'] = user1.id
+            request.session['fname'] = user1.fname
             return redirect('/success')
 
     if request.POST.get('action') == 'login':
@@ -45,7 +47,9 @@ def process(request):
                 messages.error(request, value)
             return redirect('/')
         email = request.POST['email']
-        request.session['fname'] = User.objects.get(email = email).fname
+        user1 = User.objects.get(email = email)
+        request.session['id'] = user1.id
+        request.session['fname'] = user1.fname
         return redirect('/success')
     
 def logout(request):
@@ -53,4 +57,7 @@ def logout(request):
     return redirect('/')
 
 def success(request):
-    return render(request, 'first_app/success.html')
+    if 'id' not in request.session:
+        return redirect('/')
+    else:
+        return render(request, 'first_app/success.html')

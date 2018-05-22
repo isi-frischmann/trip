@@ -24,13 +24,17 @@ class UserManager(models.Manager):
         
         # Check if email already exist!!!!
         # use .email to check the email cell in the DB!!!
+        user1 = User.objects.filter(email = postData['email'])
+        if len(user1):
+            errors['email_exist'] = 'Use different email address'
+
         # if User.objects.get(email = postData['email']).email:
-        #     errors['email_exist'] = 'Use different email address'
+            
         
-        if len(postData['email']) > 1:
-            user_email = User.objects.all()
-            if user_email == postData['email']:
-                errors['email_exist'] = 'Use different email address'
+        # if len(postData['email']) > 1:
+        #     user_email = User.objects.all()
+        #     if user_email == postData['email']:
+        #         errors['email_exist'] = 'Use different email address'
 
 
         if str(postData['birthDate']) >= today:
@@ -51,11 +55,11 @@ class UserManager(models.Manager):
             errors['email'] = 'Invalid email address'
          
         # check if email is greater then 0. And compare with the len of the user mail addresses stored in the DB.
-        if len(User.objects.filter(email = postData['email'])) != 0:
+        user1 = User.objects.filter(email = postData['email'])
+        if len(user1):
             # get all users with the email address and check
-            password = User.objects.get(email = postData['email']).password
             # check if password matches the bcrypt password in the DB. don't forget variable.encode()) != True
-            if bcrypt.checkpw(postData['password'].encode(), password.encode()) != True:
+            if bcrypt.checkpw(postData['password'].encode(), user1[0].password.encode()) != True:
                 errors['password'] = 'Password is not correct'
         else: 
             errors['email_not_exists'] = 'No email address found you need to register first'
