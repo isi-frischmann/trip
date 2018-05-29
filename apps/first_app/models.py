@@ -65,6 +65,13 @@ class UserManager(models.Manager):
             errors['email_not_exists'] = 'No email address found you need to register first'
         return errors
 
+class TripManager(models.Manager):
+    def trip_validator(self, postData):
+        errors = {}
+        pass
+        # if len(postData['fname']) < 2:
+        #     errors['fname'] =
+
 class User(models.Model):
     fname = models.CharField(max_length = 40)
     lname = models.CharField(max_length = 40)
@@ -79,3 +86,18 @@ class User(models.Model):
     def __repr__(self):
         return '<Object User: {} {} {} {} {}>'.format(self.fname, self.lname, self.email, self.b_date, self.password)
 
+class Trip(models.Model):
+    destination = models.CharField(max_length = 40)
+    description = models.TextField()
+    depature = models.DateTimeField()
+    arrival = models.DateTimeField()
+    travel_plan = models.TextField()
+    created_by = models.ForeignKey(User, related_name = 'created_by')
+    passengers = models.ManyToManyField(User, related_name = 'travel_buddy')
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+
+    objects = TripManager()
+
+    def __repr__(self):
+        return '<Object Trip: {} {} {} {} {} {}>'.format(self.destination, self.description, self.depature, self.arrival, self.travel_plan)

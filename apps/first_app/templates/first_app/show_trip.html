@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Show Trip</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static " first_app/stylesheet.css " %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+</head>
+<body>
+    <div class="show_trip">
+
+        <h2>{{trips.destination}}</h2>
+
+        {{trip.created_by.fname}}
+        <p>Planned by: {{trips.created_by.fname}}</p><br>
+        <p>Description: {{trips.description}}</p><br>
+        <p>Dapature: {{trips.depature}}</p><br>
+        <p>Arrival: {{trips.arrival}}</p><br>
+
+        <h2>Other Guests are joining the Trip:</h2>
+        {% for passenger in passengers %}
+
+        <p>Name: {{passenger.fname}} {{passenger.lname}}</p>
+        
+        {% endfor %}
+    </div>
+
+    <form action='/logout' method='POST'>
+        {% csrf_token %}
+
+        <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+
+                <button type="submit" name="logout" class="btn btn-primary">Logout</button>
+                <a href="/back">Back</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

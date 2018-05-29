@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Trip</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static " first_app/stylesheet.css " %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+</head>
+
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+<body>
+
+    <div class= "add_right">
+        <form action='/logout' method='POST'>
+            {% csrf_token %}
+
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+
+                    <button type="submit" name="logout" class="btn btn-primary">Logout</button>
+                    <a href="/back">Back</a>
+                </div>
+            </div>
+        </form>
+    
+
+    <form action='/adding' method='POST'>
+        {% csrf_token %}
+
+        <div class="container">
+            <h2>Add a Trip here</h2>
+
+            <div class="form-group">
+                <label for="Destination" class="col-sm-3 control-label">Destination</label>
+                <div class="col-sm-9">
+                    <input type="destination" name="destination" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="desc" class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-9">
+                    <input type="desc" name="desc" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="depature" class="col-sm-3 control-label">Depature</label>
+                <div class="col-sm-9">
+                    <input type="date" name="depature" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="arrival" class="col-sm-3 control-label">Arrival back home</label>
+                <div class="col-sm-9">
+                    <input type="date" name="arrival" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                    <label for="plans" class="col-sm-3 control-label">Plans</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="plans" class="form-control">
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+
+                    <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </div>
+
+    </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Travels</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static " first_app/stylesheet.css " %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="left_side">
+
+        <h2> Welcome, {{ request.session.fname }}!</h2>
+    </div>
+
+    <div class="right_side">
+        <form action='/logout' method='POST'>
+            {% csrf_token %}
+
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+
+                    <button type="submit" name="logout" class="btn btn-primary">Logout</button>
+                    <a href="/add_trip">Add Trip</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Those are my trips -->
+        <table class="table">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Travel Start Date</th>
+                    <th scope="col">Travel End Date</th>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in my_trips %}
+                <tr>
+                    <td>{{trip.description}}</td>
+                    <td>{{trip.depature}}</td>
+                    <td>{{trip.arrival}}</td>
+                    <td>{{trip.travel_plan}}</td>
+                    <td>
+                        {% if request.sesion.id == trip.tavel_buddy.id %}
+                        <a href="/cancel_trip/{{trip.id}}">Cancel</a>
+                        <a href="/delete/{{trip.id}}">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+                {% for trip in joined_trips %}
+                <tr>
+                    <td>{{trip.description}}</td>
+                    <td>{{trip.depature}}</td>
+                    <td>{{trip.arrival}}</td>
+                    <td>{{trip.travel_plan}}</td>
+                    <td>
+                        {% if request.sesion.id == trip.tavel_buddy.id %}
+                        <a href="/cancel_trip/{{trip.id}}">Cancel</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+            </table>
+            <!-- Those are all trips and I can add them to my list -->
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Travel Start Date</th>
+                        <th scope="col">Travel End Date</th>
+                        <th scope="col">Do You Want to Join?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in trips %}
+                    <tr>
+                        <td><a href="/show_trip/{{trip.id}}">{{trip.destination}}</a></td>
+                        <td>{{trip.depature}}</td>
+                        <td>{{trip.arrival}}</td>
+                        <td>
+                            <a href="/join/{{trip.id}}">Join</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+</body>
+
+</html>

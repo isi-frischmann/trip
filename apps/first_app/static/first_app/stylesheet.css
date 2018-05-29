@@ -1,1 +1,23 @@
-/* for class use . and for id use # */
+.right_side{
+    margin: 30px;
+    display: inline-block;
+    position: relative;
+}
+
+.left_side{
+    margin: 30px;
+    display: inline-block;
+    position: relative;
+}
+
+.table{
+    margin-top: 50px;
+}
+
+.add_right{
+    margin: 30px;
+}
+
+.show_trip{
+    margin: 30px;
+}
