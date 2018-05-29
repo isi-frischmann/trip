@@ -106,7 +106,7 @@ class Trip(models.Model):
     depature = models.DateTimeField()
     arrival = models.DateTimeField()
     travel_plan = models.TextField()
-    created_by = models.ForeignKey(User, related_name = 'created_by')
+    created_by = models.ForeignKey(User, related_name = 'created_by', on_delete=models.CASCADE)
     passengers = models.ManyToManyField(User, related_name = 'travel_buddy')
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)

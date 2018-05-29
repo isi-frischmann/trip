@@ -63,7 +63,7 @@ def dashboard(request):
         this_user = User.objects.filter(id = request.session['id'])
         Trip.objects.filter(passengers = this_user)
         context = {
-            'trips': Trip.objects.all(),
+            'trips': Trip.objects.all().exclude(passengers = this_user),
             'my_trips': Trip.objects.filter(created_by = this_user),
             'joined_trips': Trip.objects.filter(passengers = this_user)
         }
@@ -117,4 +117,10 @@ def delete(request, trip_id):
     delete_trip = Trip.objects.get(id = trip_id)
     delete_trip.delete()
     return redirect('/dashboard')
+
+# def join(request, trip_id):
+#     this_user = User.objects.get(id = request.session['id'])
+#     add_to_travel_list = Trip.objects.get(id = trip_id)
+#     this_user.travel_buddy.add(add_to_travel_list)
+#     return redirect('/dashboard')
 
