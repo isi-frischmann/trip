@@ -78,7 +78,7 @@ def adding(request):
         if errors:
             for key, value in errors.items():
                 messages.error(request, value)
-                return redirect('/adding')
+            return render(request, 'first_app/add_trip.html')
         else:
             this_user = User.objects.get(id = request.session['id'])
             add_trip = Trip.objects.create(
@@ -88,7 +88,7 @@ def adding(request):
                 arrival = request.POST['arrival'],
                 travel_plan = request.POST['plans'],
                 created_by = this_user)
-            return redirect('/dashboard')
+        return redirect('/dashboard')
 
 def back(request):
     return redirect('/dashboard')

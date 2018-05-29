@@ -67,10 +67,24 @@ class UserManager(models.Manager):
 
 class TripManager(models.Manager):
     def trip_validator(self, postData):
+        today = str(date.today())
         errors = {}
-        pass
-        # if len(postData['fname']) < 2:
-        #     errors['fname'] =
+
+        if len(postData['destination']) < 1:
+            errors['destination'] = 'Please fill out a destination'
+
+        if len(postData['desc']) < 1:
+            errors['desc'] = 'No description insert'
+        
+        if len(postData['plans']) < 1:
+            errors['plans'] = 'You have no plans for your trip? Please insert something'
+
+        if str(postData['depature']) <= today:
+                errors['depature'] = 'Invalid depature date - please provide a valid travel date'
+        
+        if str(postData['arrival']) <= today:
+                errors['arrival'] = 'Please insert a valid arrival date'
+        return errors
 
 class User(models.Model):
     fname = models.CharField(max_length = 40)
