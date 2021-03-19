@@ -12,7 +12,7 @@ Flask==0.12.2
 functools32==3.2.3.post2
 idna==2.6
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 jsonschema==2.6.0
 macholib==1.5.1
 MarkupSafe==1.0
